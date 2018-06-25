@@ -8,14 +8,15 @@ from bs4 import BeautifulSoup
 def process_pdfs(url):
     #asssign url to internal variable
     my_url = url
-    print("The URL you are trying to process is:" + my_url)
-    html=urllib.request.urlopen(my_url).read()
-    sopa = BeautifulSoup(html)
+    #print("The URL you are trying to process is:" + my_url)
+    html=urllib.request.urlopen(my_url)
+    tags = BeautifulSoup(html, 'html.parser')
     current_link = ''
-    for link in sopa.find_all('a'):
+    for link in tags.find_all('a'):
         current_link = link.get('href')
-        if current_link.endswith('pdf'):
-            print(' pdf: ' + current_link)
+        #print(str(current_link))
+        if str(current_link).endswith('.pdf') == True:
+            print(' pdf: ' + str(link))
 
 
 if __name__ == '__main__':
