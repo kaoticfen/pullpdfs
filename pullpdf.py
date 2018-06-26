@@ -3,7 +3,14 @@
 #import urllib2
 import sys
 import urllib.request
+import urlparse
+import os
 from bs4 import BeautifulSoup
+
+def download_pdf(download_url):
+    pdfdata = urllib.request.urlopen(download_url)
+
+
 
 def process_pdfs(url):
     #asssign url to internal variable
@@ -16,7 +23,8 @@ def process_pdfs(url):
         current_link = link.get('href')
         #print(str(current_link))
         if str(current_link).endswith('.pdf') == True:
-            print(' pdf: ' + str(link))
+            #print(' pdf: ' + str(current_link))
+            download_file(current_link)
 
 
 if __name__ == '__main__':
