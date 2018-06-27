@@ -2,14 +2,27 @@
 
 #import urllib2
 import sys
-import urllib.request
-import urlparse
+import urllib
 import os
 from bs4 import BeautifulSoup
 
-def download_pdf(download_url):
-    pdfdata = urllib.request.urlopen(download_url)
+def download_file(download_url):
+    print(download_url)
+    try:
+        pdfdata = urllib.request.urlopen(download_url)
+        datainfile = pdfdata.read()
+        filename = download_url.rsplit('/',1)[-1]
+        print(filename)
 
+        with open (str(filename), 'wb') as f:
+            f.write(datainfile)
+
+    except urllib.error.HTTPError as e:
+        if hasattr(e, 'code'):
+            print(e.code)
+        if hasattr(e,'reason'):
+            print(e.reason)
+        print('HTTP Error')
 
 
 def process_pdfs(url):
